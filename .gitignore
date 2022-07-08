@@ -1,0 +1,7 @@
+src/boot/efi/efi_config.h
+src/boot/efi/version.h
+src/boot/efi/sbat.h
+src/*.o
+src/*/*/*.o
+*.efi
+*.stub

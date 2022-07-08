@@ -1,0 +1,252 @@
+diff -ruN a/src/boot/efi/assert.c systemd-boot/src/boot/efi/assert.c
+--- a/src/boot/efi/assert.c	2022-07-06 12:57:35.452629709 -0700
++++ systemd-boot/src/boot/efi/assert.c	2022-07-06 16:11:21.589263561 -0700
+@@ -1,7 +1,6 @@
+ /* SPDX-License-Identifier: LGPL-2.1-or-later */
+ 
+ #include <efi.h>
+-#include <efilib.h>
+ 
+ #include "util.h"
+ 
+diff -ruN a/src/boot/efi/boot.c systemd-boot/src/boot/efi/boot.c
+--- a/src/boot/efi/boot.c	2022-07-06 12:57:35.452629709 -0700
++++ systemd-boot/src/boot/efi/boot.c	2022-07-07 16:47:17.316205938 -0700
+@@ -1,8 +1,6 @@
+ /* SPDX-License-Identifier: LGPL-2.1-or-later */
+ 
+ #include <efi.h>
+-#include <efigpt.h>
+-#include <efilib.h>
+ 
+ #include "bcd.h"
+ #include "bootspec-fundamental.h"
+@@ -23,13 +21,6 @@
+ #include "util.h"
+ #include "xbootldr.h"
+ 
+-#ifndef GNU_EFI_USE_MS_ABI
+-        /* We do not use uefi_call_wrapper() in systemd-boot. As such, we rely on the
+-         * compiler to do the calling convention conversion for us. This is check is
+-         * to make sure the -DGNU_EFI_USE_MS_ABI was passed to the comiler. */
+-        #error systemd-boot requires compilation with GNU_EFI_USE_MS_ABI defined.
+-#endif
+-
+ #define TEXT_ATTR_SWAP(c) EFI_TEXT_ATTR(((c) & 0b11110000) >> 4, (c) & 0b1111)
+ 
+ /* Magic string for recognizing our own binaries */
+diff -ruN a/src/boot/efi/console.c systemd-boot/src/boot/efi/console.c
+--- a/src/boot/efi/console.c	2022-07-06 12:57:35.452629709 -0700
++++ systemd-boot/src/boot/efi/console.c	2022-07-06 16:11:00.381456949 -0700
+@@ -1,7 +1,6 @@
+ /* SPDX-License-Identifier: LGPL-2.1-or-later */
+ 
+ #include <efi.h>
+-#include <efilib.h>
+ 
+ #include "console.h"
+ #include "util.h"
+diff -ruN a/src/boot/efi/disk.c systemd-boot/src/boot/efi/disk.c
+--- a/src/boot/efi/disk.c	2022-07-06 12:57:35.456629592 -0700
++++ systemd-boot/src/boot/efi/disk.c	2022-07-06 16:10:43.561600139 -0700
+@@ -1,7 +1,6 @@
+ /* SPDX-License-Identifier: LGPL-2.1-or-later */
+ 
+ #include <efi.h>
+-#include <efilib.h>
+ 
+ #include "disk.h"
+ #include "util.h"
+diff -ruN a/src/boot/efi/drivers.c systemd-boot/src/boot/efi/drivers.c
+--- a/src/boot/efi/drivers.c	2022-07-06 12:57:35.456629592 -0700
++++ systemd-boot/src/boot/efi/drivers.c	2022-07-06 16:11:18.689290780 -0700
+@@ -1,7 +1,6 @@
+ /* SPDX-License-Identifier: LGPL-2.1-or-later */
+ 
+ #include <efi.h>
+-#include <efilib.h>
+ 
+ #include "drivers.h"
+ #include "util.h"
+diff -ruN a/src/boot/efi/graphics.c systemd-boot/src/boot/efi/graphics.c
+--- a/src/boot/efi/graphics.c	2022-07-06 12:57:35.456629592 -0700
++++ systemd-boot/src/boot/efi/graphics.c	2022-07-06 16:10:52.365526404 -0700
+@@ -5,7 +5,6 @@
+  */
+ 
+ #include <efi.h>
+-#include <efilib.h>
+ 
+ #include "graphics.h"
+ #include "missing_efi.h"
+diff -ruN a/src/boot/efi/initrd.c systemd-boot/src/boot/efi/initrd.c
+--- a/src/boot/efi/initrd.c	2022-07-06 12:57:35.456629592 -0700
++++ systemd-boot/src/boot/efi/initrd.c	2022-07-06 16:10:32.161691361 -0700
+@@ -1,7 +1,6 @@
+ /* SPDX-License-Identifier: LGPL-2.1-or-later */
+ 
+ #include <efi.h>
+-#include <efilib.h>
+ 
+ #include "initrd.h"
+ #include "macro-fundamental.h"
+diff -ruN a/src/boot/efi/linux.c systemd-boot/src/boot/efi/linux.c
+--- a/src/boot/efi/linux.c	2022-07-06 12:57:35.456629592 -0700
++++ systemd-boot/src/boot/efi/linux.c	2022-07-06 16:11:03.013433692 -0700
+@@ -9,7 +9,6 @@
+  */
+ 
+ #include <efi.h>
+-#include <efilib.h>
+ 
+ #include "initrd.h"
+ #include "linux.h"
+diff -ruN a/src/boot/efi/linux_x86.c systemd-boot/src/boot/efi/linux_x86.c
+--- a/src/boot/efi/linux_x86.c	2022-07-06 12:57:35.456629592 -0700
++++ systemd-boot/src/boot/efi/linux_x86.c	2022-07-06 16:10:34.929669673 -0700
+@@ -11,7 +11,6 @@
+  */
+ 
+ #include <efi.h>
+-#include <efilib.h>
+ 
+ #include "initrd.h"
+ #include "linux.h"
+diff -ruN a/src/boot/efi/measure.c systemd-boot/src/boot/efi/measure.c
+--- a/src/boot/efi/measure.c	2022-07-06 12:57:35.456629592 -0700
++++ systemd-boot/src/boot/efi/measure.c	2022-07-06 16:10:54.801505528 -0700
+@@ -3,7 +3,6 @@
+ #if ENABLE_TPM
+ 
+ #include <efi.h>
+-#include <efilib.h>
+ 
+ #include "macro-fundamental.h"
+ #include "measure.h"
+diff -ruN a/src/boot/efi/missing_efi.h systemd-boot/src/boot/efi/missing_efi.h
+--- a/src/boot/efi/missing_efi.h	2022-07-06 12:57:35.456629592 -0700
++++ systemd-boot/src/boot/efi/missing_efi.h	2022-07-06 16:52:28.204583112 -0700
+@@ -318,11 +318,9 @@
+ 
+ struct _EFI_SECURITY2_PROTOCOL;
+ struct _EFI_SECURITY_PROTOCOL;
+-struct _EFI_DEVICE_PATH_PROTOCOL;
+ 
+ typedef struct _EFI_SECURITY2_PROTOCOL EFI_SECURITY2_PROTOCOL;
+ typedef struct _EFI_SECURITY_PROTOCOL EFI_SECURITY_PROTOCOL;
+-typedef struct _EFI_DEVICE_PATH_PROTOCOL EFI_DEVICE_PATH_PROTOCOL;
+ 
+ typedef EFI_STATUS (EFIAPI *EFI_SECURITY_FILE_AUTHENTICATION_STATE) (
+         const EFI_SECURITY_PROTOCOL *This,
+diff -ruN a/src/boot/efi/pe.c systemd-boot/src/boot/efi/pe.c
+--- a/src/boot/efi/pe.c	2022-07-06 12:57:35.456629592 -0700
++++ systemd-boot/src/boot/efi/pe.c	2022-07-06 16:11:11.029361524 -0700
+@@ -1,7 +1,6 @@
+ /* SPDX-License-Identifier: LGPL-2.1-or-later */
+ 
+ #include <efi.h>
+-#include <efilib.h>
+ 
+ #include "missing_efi.h"
+ #include "pe.h"
+diff -ruN a/src/boot/efi/pe.h systemd-boot/src/boot/efi/pe.h
+--- a/src/boot/efi/pe.h	2022-07-06 12:57:35.456629592 -0700
++++ systemd-boot/src/boot/efi/pe.h	2022-07-06 17:02:23.470832536 -0700
+@@ -1,7 +1,6 @@
+ /* SPDX-License-Identifier: LGPL-2.1-or-later */
+ #pragma once
+ 
+-#include <efidef.h>
+ #include <uchar.h>
+ 
+ EFI_STATUS pe_memory_locate_sections(
+diff -ruN a/src/boot/efi/random-seed.c systemd-boot/src/boot/efi/random-seed.c
+--- a/src/boot/efi/random-seed.c	2022-07-06 12:57:35.456629592 -0700
++++ systemd-boot/src/boot/efi/random-seed.c	2022-07-06 16:10:57.685480545 -0700
+@@ -1,7 +1,6 @@
+ /* SPDX-License-Identifier: LGPL-2.1-or-later */
+ 
+ #include <efi.h>
+-#include <efilib.h>
+ 
+ #include "missing_efi.h"
+ #include "random-seed.h"
+diff -ruN a/src/boot/efi/shim.c systemd-boot/src/boot/efi/shim.c
+--- a/src/boot/efi/shim.c	2022-07-06 12:57:35.456629592 -0700
++++ systemd-boot/src/boot/efi/shim.c	2022-07-06 16:11:16.137314533 -0700
+@@ -9,7 +9,6 @@
+  */
+ 
+ #include <efi.h>
+-#include <efilib.h>
+ 
+ #include "missing_efi.h"
+ #include "util.h"
+diff -ruN a/src/boot/efi/splash.c systemd-boot/src/boot/efi/splash.c
+--- a/src/boot/efi/splash.c	2022-07-06 12:57:35.456629592 -0700
++++ systemd-boot/src/boot/efi/splash.c	2022-07-06 16:10:45.997580016 -0700
+@@ -1,7 +1,6 @@
+ /* SPDX-License-Identifier: LGPL-2.1-or-later */
+ 
+ #include <efi.h>
+-#include <efilib.h>
+ 
+ #include "graphics.h"
+ #include "splash.h"
+diff -ruN a/src/boot/efi/stub.c systemd-boot/src/boot/efi/stub.c
+--- a/src/boot/efi/stub.c	2022-07-06 12:57:35.456629592 -0700
++++ systemd-boot/src/boot/efi/stub.c	2022-07-06 16:11:08.729382428 -0700
+@@ -1,7 +1,6 @@
+ /* SPDX-License-Identifier: LGPL-2.1-or-later */
+ 
+ #include <efi.h>
+-#include <efilib.h>
+ 
+ #include "cpio.h"
+ #include "devicetree.h"
+diff -ruN a/src/boot/efi/ticks.c systemd-boot/src/boot/efi/ticks.c
+--- a/src/boot/efi/ticks.c	2022-07-06 12:57:35.456629592 -0700
++++ systemd-boot/src/boot/efi/ticks.c	2022-07-06 16:10:49.653549407 -0700
+@@ -1,7 +1,6 @@
+ /* SPDX-License-Identifier: LGPL-2.1-or-later */
+ 
+ #include <efi.h>
+-#include <efilib.h>
+ #if defined(__i386__) || defined(__x86_64__)
+ #include <cpuid.h>
+ #endif
+diff -ruN a/src/boot/efi/util.c systemd-boot/src/boot/efi/util.c
+--- a/src/boot/efi/util.c	2022-07-06 12:57:35.456629592 -0700
++++ systemd-boot/src/boot/efi/util.c	2022-07-07 12:46:02.171900422 -0700
+@@ -1,7 +1,7 @@
+ /* SPDX-License-Identifier: LGPL-2.1-or-later */
+ 
+ #include <efi.h>
+-#include <efilib.h>
++#include <stdarg.h>
+ 
+ #include "ticks.h"
+ #include "util.h"
+diff -ruN a/src/boot/efi/util.h systemd-boot/src/boot/efi/util.h
+--- a/src/boot/efi/util.h	2022-07-06 12:57:35.456629592 -0700
++++ systemd-boot/src/boot/efi/util.h	2022-07-07 12:39:21.631299862 -0700
+@@ -2,7 +2,6 @@
+ #pragma once
+ 
+ #include <efi.h>
+-#include <efilib.h>
+ #include <stddef.h>
+ 
+ #include "string-util-fundamental.h"
+diff -ruN a/src/boot/efi/xbootldr.c systemd-boot/src/boot/efi/xbootldr.c
+--- a/src/boot/efi/xbootldr.c	2022-07-06 12:57:35.456629592 -0700
++++ systemd-boot/src/boot/efi/xbootldr.c	2022-07-07 17:02:21.799446083 -0700
+@@ -1,8 +1,6 @@
+ /* SPDX-License-Identifier: LGPL-2.1-or-later */
+ 
+ #include <efi.h>
+-#include <efigpt.h>
+-#include <efilib.h>
+ 
+ #include "util.h"
+ #include "xbootldr.h"

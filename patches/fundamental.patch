@@ -1,0 +1,46 @@
+diff -ruN a/src/fundamental/macro-fundamental.h systemd-boot/src/fundamental/macro-fundamental.h
+--- a/src/fundamental/macro-fundamental.h	2022-07-06 12:57:35.488628663 -0700
++++ systemd-boot/src/fundamental/macro-fundamental.h	2022-07-06 16:38:43.164576381 -0700
+@@ -112,15 +112,6 @@
+                 __sync_bool_compare_and_swap(&(o), false, true); \
+         })
+ 
+-#undef MAX
+-#define MAX(a, b) __MAX(UNIQ, (a), UNIQ, (b))
+-#define __MAX(aq, a, bq, b)                             \
+-        ({                                              \
+-                const typeof(a) UNIQ_T(A, aq) = (a);    \
+-                const typeof(b) UNIQ_T(B, bq) = (b);    \
+-                UNIQ_T(A, aq) > UNIQ_T(B, bq) ? UNIQ_T(A, aq) : UNIQ_T(B, bq); \
+-        })
+-
+ #define IS_UNSIGNED_INTEGER_TYPE(type) \
+         (__builtin_types_compatible_p(typeof(type), unsigned char) ||   \
+          __builtin_types_compatible_p(typeof(type), unsigned short) ||  \
+@@ -162,15 +153,6 @@
+                 MAX(_d, a);                             \
+         })
+ 
+-#undef MIN
+-#define MIN(a, b) __MIN(UNIQ, (a), UNIQ, (b))
+-#define __MIN(aq, a, bq, b)                             \
+-        ({                                              \
+-                const typeof(a) UNIQ_T(A, aq) = (a);    \
+-                const typeof(b) UNIQ_T(B, bq) = (b);    \
+-                UNIQ_T(A, aq) < UNIQ_T(B, bq) ? UNIQ_T(A, aq) : UNIQ_T(B, bq); \
+-        })
+-
+ /* evaluates to (void) if _A or _B are not constant or of different types */
+ #define CONST_MIN(_A, _B) \
+         (__builtin_choose_expr(                                         \
+diff -ruN a/src/fundamental/string-util-fundamental.h systemd-boot/src/fundamental/string-util-fundamental.h
+--- a/src/fundamental/string-util-fundamental.h	2022-07-06 12:57:35.488628663 -0700
++++ systemd-boot/src/fundamental/string-util-fundamental.h	2022-07-06 16:37:40.467721232 -0700
+@@ -3,7 +3,6 @@
+ 
+ #ifdef SD_BOOT
+ #  include <efi.h>
+-#  include <efilib.h>
+ #  include "efi-string.h"
+ #else
+ #  include <string.h>
